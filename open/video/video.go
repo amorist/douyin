@@ -19,6 +19,8 @@ const (
 	videoPartCompleteURL string = "https://open.douyin.com/video/part/complete?access_token=%s&open_id=%s&upload_id=%s"
 	// 创建视频
 	videoCreateURL string = "https://open.douyin.com/video/create?access_token=%s&open_id=%s"
+	// 删除视频
+	videoDeleteURL string = "https://open.douyin.com/video/delete?access_token=%s&open_id=%s"
 )
 
 // Video 视频
@@ -230,5 +232,45 @@ func (video *Video) Create(openid string, videoInfo *CreateVideoReq) (info Creat
 		return
 	}
 	info = result.Data
+	return
+}
+
+type deleteVideoReq struct {
+	ItemID string `json:"item_id"`
+}
+
+type deleteVideoRes struct {
+	Message string           `json:"message"`
+	Data    util.CommonError `json:"data"`
+}
+
+// Delete 视频删除
+func (video *Video) Delete(openid, itemid string) {
+	accessToken, err := video.GetAccessToken(openid)
+	if err != nil {
+		return
+	}
+
+	uri := fmt.Sprintf(videoCreateURL, accessToken, openid)
+
+	rep := &deleteVideoReq{
+		ItemID: itemid,
+	}
+
+	var response []byte
+	response, err = util.PostJSON(uri, rep)
+	if err != nil {
+		return
+	}
+
+	var result deleteVideoRes
+	err = json.Unmarshal(response, &result)
+	if err != nil {
+		return
+	}
+	if result.Data.ErrCode != 0 {
+		err = fmt.Errorf("Delete error : errcode=%v , errmsg=%v", result.Data.ErrCode, result.Data.ErrMsg)
+		return
+	}
 	return
 }
