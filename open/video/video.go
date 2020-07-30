@@ -45,6 +45,7 @@ type uploadVideoRes struct {
 }
 
 // Upload 视频上传.
+// refer: https://open.douyin.com/platform/doc/6848798087398295555
 func (video *Video) Upload(openid, filename string) (videoInfo Info, err error) {
 	accessToken, err := video.GetAccessToken(openid)
 	if err != nil {
@@ -89,6 +90,7 @@ type partInfoRes struct {
 }
 
 // PartInit 初始化分片上传.
+// refer: https://open.douyin.com/platform/doc/6848798087398393859
 func (video *Video) PartInit(openid string) (partInfo PartInfo, err error) {
 	accessToken, err := video.GetAccessToken(openid)
 	if err != nil {
@@ -121,6 +123,7 @@ type partVideoRes struct {
 }
 
 // PartUpload 视频分片上传.
+// refer: https://open.douyin.com/platform/doc/6848798087226460172
 func (video *Video) PartUpload(openid, uploadid string, partNumber int64, filename string) (err error) {
 	accessToken, err := video.GetAccessToken(openid)
 	if err != nil {
@@ -152,6 +155,7 @@ func (video *Video) PartUpload(openid, uploadid string, partNumber int64, filena
 }
 
 // PartComplete 视频分片完成上传.
+// refer: https://open.douyin.com/platform/doc/6848798087398361091
 func (video *Video) PartComplete(openid, uploadid string) (videoInfo Info, err error) {
 	accessToken, err := video.GetAccessToken(openid)
 	if err != nil {
@@ -208,7 +212,8 @@ type createRes struct {
 	Data    CreateInfo `json:"data"`
 }
 
-// Create 视频上传.
+// Create 视频创建.
+// refer: https://open.douyin.com/platform/doc/6848798087398328323
 func (video *Video) Create(openid string, videoInfo *CreateVideoReq) (info CreateInfo, err error) {
 	accessToken, err := video.GetAccessToken(openid)
 	if err != nil {
@@ -245,6 +250,7 @@ type deleteVideoRes struct {
 }
 
 // Delete 视频删除
+// refer: https://open.douyin.com/platform/doc/6848806536383383560#url
 func (video *Video) Delete(openid, itemid string) {
 	accessToken, err := video.GetAccessToken(openid)
 	if err != nil {
