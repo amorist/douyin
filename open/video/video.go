@@ -53,13 +53,8 @@ func (video *Video) Upload(openid, filename string) (videoInfo Info, err error) 
 	}
 
 	uri := fmt.Sprintf(videoUploadURL, accessToken, openid)
-	field := util.MultipartFormField{
-		Fieldname: "video",
-		Filename:  filename,
-	}
-
 	var response []byte
-	response, err = util.PostMultipartForm(field, uri)
+	response, err = util.PostFile("video", filename, uri)
 	if err != nil {
 		return
 	}
@@ -131,13 +126,9 @@ func (video *Video) PartUpload(openid, uploadid string, partNumber int64, filena
 	}
 
 	uri := fmt.Sprintf(videoPartUploadURL, accessToken, openid)
-	field := util.MultipartFormField{
-		Fieldname: "video",
-		Filename:  filename,
-	}
 
 	var response []byte
-	response, err = util.PostMultipartForm(field, uri)
+	response, err = util.PostFile("video", filename, uri)
 	if err != nil {
 		return
 	}

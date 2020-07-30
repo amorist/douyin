@@ -68,26 +68,40 @@ type MultipartFormField struct {
 	Filename  string
 }
 
+//PostFile 上传文件
+func PostFile(fieldname, filename, uri string) ([]byte, error) {
+	fields := []MultipartFormField{
+		{
+			Fieldname: fieldname,
+			Filename:  filename,
+		},
+	}
+	return PostMultipartForm(fields, uri)
+}
+
 // PostMultipartForm 上传文件或其他多个字段
-func PostMultipartForm(field MultipartFormField, uri string) (respBody []byte, err error) {
+func PostMultipartForm(fields []MultipartFormField, uri string) (respBody []byte, err error) {
 	bodyBuf := &bytes.Buffer{}
 	bodyWriter := multipart.NewWriter(bodyBuf)
 
-	fileWriter, e := bodyWriter.CreateFormFile(field.Fieldname, field.Filename)
-	if e != nil {
-		err = fmt.Errorf("error writing to buffer , err=%v", e)
-		return
-	}
+	for _, field := range fields {
 
-	fh, e := os.Open(field.Filename)
-	if e != nil {
-		err = fmt.Errorf("error opening file , err=%v", e)
-		return
-	}
-	defer fh.Close()
+		fileWriter, e := bodyWriter.CreateFormFile(field.Fieldname, field.Filename)
+		if e != nil {
+			err = fmt.Errorf("error writing to buffer , err=%v", e)
+			return
+		}
 
-	if _, err = io.Copy(fileWriter, fh); err != nil {
-		return
+		fh, e := os.Open(field.Filename)
+		if e != nil {
+			err = fmt.Errorf("error opening file , err=%v", e)
+			return
+		}
+		defer fh.Close()
+
+		if _, err = io.Copy(fileWriter, fh); err != nil {
+			return
+		}
 	}
 
 	contentType := bodyWriter.FormDataContentType()
