@@ -1,6 +1,9 @@
 # 抖音开放平台API (In progress)
 
-## 文档 TODO
+## Docs 文档
+
+[![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/amorist/douyin?tab=doc)
+
 
 ## 入群
 
