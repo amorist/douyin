@@ -28,6 +28,13 @@ type User struct {
 	*context.Context
 }
 
+// NewUser .
+func NewUser(context *context.Context) *User {
+	user := new(User)
+	user.Context = context
+	return user
+}
+
 // LeadsUser 意向用户详情.
 type LeadsUser struct {
 	util.CommonError

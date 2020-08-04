@@ -21,15 +21,22 @@ const (
 	videoCreateURL string = "https://open.douyin.com/video/create?access_token=%s&open_id=%s"
 	// 删除视频
 	videoDeleteURL string = "https://open.douyin.com/video/delete?access_token=%s&open_id=%s"
-
 	// 视频列表
 	videoListURL string = "https://open.douyin.com/video/list?access_token=%s&open_id=%s&cursor=%d&count=%d"
+	// 视频数据
 	videoDataURL string = "https://open.douyin.com/video/data?access_token=%s&open_id=%s"
 )
 
 // Video 视频
 type Video struct {
 	*context.Context
+}
+
+// NewVideo .
+func NewVideo(context *context.Context) *Video {
+	video := new(Video)
+	video.Context = context
+	return video
 }
 
 // Info 视频信息.
