@@ -20,6 +20,13 @@ type Image struct {
 	*context.Context
 }
 
+// NewImage .
+func NewImage(context *context.Context) *Image {
+	image := new(Image)
+	image.Context = context
+	return image
+}
+
 // Info 视频信息.
 type Info struct {
 	util.CommonError

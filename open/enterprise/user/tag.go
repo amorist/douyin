@@ -8,10 +8,11 @@ import (
 )
 
 const (
-	leadsTagListURL     string = "https://open.douyin.com/enterprise/leads/tag/list?access_token=%s&open_id=%s&cursor=%d&count=%d"
-	leadsTagUserListURL string = "https://open.douyin.com/enterprise/leads/tag/user/list?access_token=%s&open_id=%s&cursor=%d&count=%d&tag_id=%s"
-	leadsTagCreateURL   string = "https://open.douyin.com/enterprise/leads/tag/create?access_token=%s&open_id=%s"
-	leadsTagUpdateURL   string = "https://open.douyin.com/enterprise/leads/tag/update?access_token=%s&open_id=%s"
+	leadsTagListURL       string = "https://open.douyin.com/enterprise/leads/tag/list?access_token=%s&open_id=%s&cursor=%d&count=%d"
+	leadsTagUserListURL   string = "https://open.douyin.com/enterprise/leads/tag/user/list?access_token=%s&open_id=%s&cursor=%d&count=%d&tag_id=%s"
+	leadsTagUserUpdateURL string = "https://open.douyin.com/enterprise/leads/tag/user/update?access_token=%s&open_id=%s"
+	leadsTagCreateURL     string = "https://open.douyin.com/enterprise/leads/tag/create?access_token=%s&open_id=%s"
+	leadsTagUpdateURL     string = "https://open.douyin.com/enterprise/leads/tag/update?access_token=%s&open_id=%s"
 )
 
 // TagInfo user tag.
@@ -176,6 +177,44 @@ func (user *User) UpdateTag(openid, tagName, tagID string) (err error) {
 	}
 	if result.Data.ErrCode != 0 {
 		err = fmt.Errorf("UpdateTag error : errcode=%v , errmsg=%v", result.Data.ErrCode, result.Data.ErrMsg)
+		return
+	}
+	return
+}
+
+// UpdateUserTagReq .
+type UpdateUserTagReq struct {
+	Bind   bool   `json:"bind"`
+	TagID  string `json:"tag_id"`
+	UserID string `json:"user_id"`
+}
+
+type updateUserTagRes struct {
+	Message string `json:"message"`
+	Data    struct {
+		util.CommonError
+	} `json:"data"`
+}
+
+// UpdateUserTag 给用户设置标签.
+func (user *User) UpdateUserTag(openid string, req UpdateUserTagReq) (err error) {
+	accessToken, err := user.GetAccessToken(openid)
+	if err != nil {
+		return
+	}
+	uri := fmt.Sprintf(leadsTagUserUpdateURL, accessToken, openid)
+	var response []byte
+	response, err = util.PostJSON(uri, &req)
+	if err != nil {
+		return
+	}
+	var result updateUserTagRes
+	err = json.Unmarshal(response, &result)
+	if err != nil {
+		return
+	}
+	if result.Data.ErrCode != 0 {
+		err = fmt.Errorf("UpdateUserTag error : errcode=%v , errmsg=%v", result.Data.ErrCode, result.Data.ErrMsg)
 		return
 	}
 	return

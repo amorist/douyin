@@ -40,7 +40,7 @@ type Ticket struct {
 	ExpiresIn int64  `json:"expires_in"`
 }
 
-//GetTicket 获取jsapi_ticket
+// GetTicket 获取jsapi_ticket
 func (js *DefaultJsTicket) GetTicket(accessToken string) (ticketStr string, err error) {
 	js.jsAPITicketLock.Lock()
 	defer js.jsAPITicketLock.Unlock()
@@ -63,7 +63,7 @@ func (js *DefaultJsTicket) GetTicket(accessToken string) (ticketStr string, err 
 	return
 }
 
-//GetTicketFromServer 从服务器中获取ticket
+// GetTicketFromServer 从服务器中获取ticket
 func GetTicketFromServer(accessToken string) (ticket Ticket, err error) {
 	var response []byte
 	url := fmt.Sprintf(getTicketURL, accessToken)

@@ -18,6 +18,13 @@ type User struct {
 	*context.Context
 }
 
+// NewUser .
+func NewUser(context *context.Context) *User {
+	user := new(User)
+	user.Context = context
+	return user
+}
+
 // Info user info.
 type Info struct {
 	util.CommonError
