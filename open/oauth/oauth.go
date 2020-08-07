@@ -1,8 +1,9 @@
-package oauth2
+package oauth
 
 import (
 	"encoding/json"
 	"fmt"
+	"net/url"
 
 	"github.com/amorist/douyin/open/context"
 	"github.com/amorist/douyin/open/credential"
@@ -10,6 +11,7 @@ import (
 )
 
 const (
+	redirectOauthURL      string = "https://open.douyin.com/platform/oauth/connect?client_key=%s&response_type=code&scope=%s&redirect_uri=%s&state=%s"
 	accessTokenURL        string = "https://open.douyin.com/oauth/access_token?client_key=%s&client_secret=%s&code=%s&grant_type=authorization_code"
 	refreshAccessTokenURL string = "https://open.douyin.com/oauth/oauth/refresh_token?client_key=%s&grant_type=refresh_token&refresh_token=%s"
 	clientTokenURL        string = "https://open.douyin.com/oauth/oauth/client_token/?client_key=%s&client_secret=%s&grant_type=client_credential"
@@ -26,6 +28,12 @@ func NewOauth(context *context.Context) *Oauth {
 	auth := new(Oauth)
 	auth.Context = context
 	return auth
+}
+
+// GetRedirectURL 获取授权码的url地址
+func (oauth *Oauth) GetRedirectURL(redirectURI, scope, state string) string {
+	uri := url.QueryEscape(redirectURI)
+	return fmt.Sprintf(redirectOauthURL, oauth.ClientKey, scope, uri, state)
 }
 
 type accessTokenRes struct {

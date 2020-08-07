@@ -6,7 +6,7 @@ import (
 	"github.com/amorist/douyin/open/credential"
 	"github.com/amorist/douyin/open/enterprise"
 	"github.com/amorist/douyin/open/image"
-	"github.com/amorist/douyin/open/oauth2"
+	"github.com/amorist/douyin/open/oauth"
 	"github.com/amorist/douyin/open/pay"
 	"github.com/amorist/douyin/open/poi"
 	"github.com/amorist/douyin/open/search"
@@ -54,8 +54,8 @@ func (douyin *Douyin) GetClientToken() (string, error) {
 }
 
 // GetOauth oauth2网页授权
-func (douyin *Douyin) GetOauth() *oauth2.Oauth {
-	return oauth2.NewOauth(douyin.ctx)
+func (douyin *Douyin) GetOauth() *oauth.Oauth {
+	return oauth.NewOauth(douyin.ctx)
 }
 
 // GetVideo 视频管理接口

@@ -2,6 +2,7 @@
 
 ## Docs 文档
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/amorist/douyin)](https://goreportcard.com/report/github.com/amorist/douyin)
 [![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/amorist/douyin?tab=doc)
 
 
