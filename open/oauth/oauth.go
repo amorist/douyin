@@ -31,9 +31,9 @@ func NewOauth(context *context.Context) *Oauth {
 }
 
 // GetRedirectURL 获取授权码的url地址
-func (oauth *Oauth) GetRedirectURL(scope, state string) string {
+func (oauth *Oauth) GetRedirectURL(state string) string {
 	uri := url.QueryEscape(oauth.RedirectURL)
-	return fmt.Sprintf(redirectOauthURL, oauth.ClientKey, scope, uri, state)
+	return fmt.Sprintf(redirectOauthURL, oauth.ClientKey, oauth.Scopes, uri, state)
 }
 
 type accessTokenRes struct {

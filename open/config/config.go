@@ -7,5 +7,6 @@ type Config struct {
 	ClientKey    string
 	ClientSecret string
 	RedirectURL  string
+	Scopes       string
 	Cache        cache.Cache
 }

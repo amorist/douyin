@@ -8,15 +8,17 @@
 ## Usage 示例
 
 ```go
+scopes := oauth.GetAllScope(), 
 dy := douyin.NewDouyin(&config.Config{
     ClientKey:    "",
     ClientSecret: "",
     RedirectURL:  "",
+    Scopes:  scopes,
     Cache        nil,
 })
 
 oauth := dy.GetOauth()
-url := oauth.GetRedirectURL(oauth.GetAllScope(), "amorist")
+url := oauth.GetRedirectURL("amorist")
 ```
 
 ## Issue 如有问题，可以提issue或通过微信联系我
