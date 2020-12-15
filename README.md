@@ -14,7 +14,7 @@ dy := douyin.NewDouyin(&config.Config{
     ClientSecret: "",
     RedirectURL:  "",
     Scopes:  scopes,
-    Cache        nil,
+    Cache:   nil,
 })
 
 oauth := dy.GetOauth()
