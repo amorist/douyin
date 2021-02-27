@@ -11,9 +11,10 @@ import (
 )
 
 const (
-	accessTokenURL  = "https://open.douyin.com/oauth/access_token?client_key=%s&client_secret=%s&code=%s&grant_type=authorization_code"
-	refreshTokenURL = "https://open.douyin.com/oauth/oauth/refresh_token?client_key=%s&grant_type=refresh_token&refresh_token=%s"
-	clientTokenURL  = "https://open.douyin.com/oauth/oauth/client_token?client_key=%s&client_secret=%s&grant_type=client_credential"
+	accessTokenURL       = "https://open.douyin.com/oauth/access_token?client_key=%s&client_secret=%s&code=%s&grant_type=authorization_code"
+	refreshTokenURL      = "https://open.douyin.com/oauth/oauth/refresh_token?client_key=%s&grant_type=refresh_token&refresh_token=%s"
+	renewRefreshTokenURL = "https://open.douyin.com/oauth/oauth/renew_refresh_token?client_key=%s&refresh_token=%s"
+	clientTokenURL       = "https://open.douyin.com/oauth/oauth/client_token?client_key=%s&client_secret=%s&grant_type=client_credential"
 	// CacheKeyPrefix 抖音open cache key前缀
 	CacheKeyPrefix = "douyin_open"
 )
@@ -112,8 +113,10 @@ func (ak *DefaultAccessToken) SetAccessToken(accessToken *AccessToken) (err erro
 }
 
 type accessTokenRes struct {
-	Message string      `json:"message"`
-	Data    AccessToken `json:"data"`
+	Message string                `json:"message"`
+	Extra   util.CommonErrorExtra `json:"extra"`
+
+	Data AccessToken `json:"data"`
 }
 
 // RefreshAccessToken 刷新AccessToken.
@@ -144,11 +147,42 @@ func (ak *DefaultAccessToken) RefreshAccessToken(refreshToken string) (accessTok
 	return
 }
 
-// TODO:刷新refresh_token
+// RefreshToken .
+type RefreshToken struct {
+	util.CommonError
+
+	ExpiresIn    int64  `json:"expires_in"`
+	RefreshToken string `json:"refresh_token"`
+}
+
+type refreshTokenRes struct {
+	Message string                `json:"message"`
+	Extra   util.CommonErrorExtra `json:"extra"`
+	Data    RefreshToken          `json:"data"`
+}
+
+// RenewRefreshToken 刷新refresh_token.
 // 前提： client_key需要具备renew_refresh_token这个权限
 // 接口说明： 可以通过旧的refresh_token获取新的refresh_token,调用后旧refresh_token会失效，新refresh_token有30天有效期。最多只能获取5次新的refresh_token，5次过后需要用户重新授权。
-func (ak *DefaultAccessToken) renewRefreshToken(refreshToken string) {
+func (ak *DefaultAccessToken) RenewRefreshToken(refreshToken string) (refreshTokenData *RefreshToken, err error) {
+	uri := fmt.Sprintf(renewRefreshTokenURL, ak.ClientKey, refreshToken)
+	var response []byte
+	response, err = util.HTTPGet(uri)
+	if err != nil {
+		return
+	}
+	var result refreshTokenRes
+	err = json.Unmarshal(response, &result)
+	if err != nil {
+		return
+	}
 
+	if result.Data.ErrCode != 0 {
+		err = fmt.Errorf("RenewRefreshToken error : errcode=%v , errmsg=%v", result.Data.ErrCode, result.Data.ErrMsg)
+		return
+	}
+	refreshTokenData = &result.Data
+	return
 }
 
 // ClientToken struct.
