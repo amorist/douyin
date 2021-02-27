@@ -8,17 +8,18 @@
 ## Usage 示例
 
 ```go
-scopes := oauth.GetAllScope(), 
-dy := douyin.NewDouyin(&config.Config{
+dy := douyin.NewDouyin()
+scopes := oauth.GetAllScope(),
+cfg := &config.Config{
     ClientKey:    "your client key",
     ClientSecret: "your client secret",
     RedirectURL:  "your redirect url",
     Scopes:  scopes,
     Cache:   util.NewMemCache(),
-})
-
-oauth := dy.GetOauth()
-url := oauth.GetRedirectURL("amorist")
+}
+openAPI := dy.GetOpenAPI()
+oauth := openAPI.GetOauth()
+url := oauth.GetRedirectURL("amor")
 ```
 
 ## Issue 如有问题，可以提issue或通过微信联系我
