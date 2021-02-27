@@ -10,11 +10,11 @@
 ```go
 scopes := oauth.GetAllScope(), 
 dy := douyin.NewDouyin(&config.Config{
-    ClientKey:    "",
-    ClientSecret: "",
-    RedirectURL:  "",
+    ClientKey:    "your client key",
+    ClientSecret: "your client secret",
+    RedirectURL:  "your redirect url",
     Scopes:  scopes,
-    Cache:   nil,
+    Cache:   util.NewMemCache(),
 })
 
 oauth := dy.GetOauth()

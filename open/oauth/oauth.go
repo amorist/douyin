@@ -32,6 +32,9 @@ func NewOauth(context *context.Context) *Oauth {
 
 // GetRedirectURL 获取授权码的url地址
 func (oauth *Oauth) GetRedirectURL(state string) string {
+	if oauth.RedirectURL == "" {
+		panic("redirect url not set")
+	}
 	uri := url.QueryEscape(oauth.RedirectURL)
 	return fmt.Sprintf(redirectOauthURL, oauth.ClientKey, oauth.Scopes, uri, state)
 }
