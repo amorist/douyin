@@ -12,6 +12,7 @@ import (
 
 const (
 	redirectOauthURL      string = "https://open.douyin.com/platform/oauth/connect?client_key=%s&response_type=code&scope=%s&redirect_uri=%s&state=%s"
+	silenceOauthURL       string = "https://open.douyin.com/platform/oauth/authorize/v2?client_key=%s&response_type=code&scope=login_id&redirect_uri=%s&state=%s"
 	accessTokenURL        string = "https://open.douyin.com/oauth/access_token?client_key=%s&client_secret=%s&code=%s&grant_type=authorization_code"
 	refreshAccessTokenURL string = "https://open.douyin.com/oauth/oauth/refresh_token?client_key=%s&grant_type=refresh_token&refresh_token=%s"
 	clientTokenURL        string = "https://open.douyin.com/oauth/oauth/client_token/?client_key=%s&client_secret=%s&grant_type=client_credential"
@@ -37,6 +38,15 @@ func (oauth *Oauth) GetRedirectURL(state string) string {
 	}
 	uri := url.QueryEscape(oauth.RedirectURL)
 	return fmt.Sprintf(redirectOauthURL, oauth.ClientKey, oauth.Scopes, uri, state)
+}
+
+// GetSilenceOauthURL 获取静默授权码的url地址
+func (oauth *Oauth) GetSilenceOauthURL(state string) string {
+	if oauth.RedirectURL == "" {
+		panic("redirect url not set")
+	}
+	uri := url.QueryEscape(oauth.RedirectURL)
+	return fmt.Sprintf(silenceOauthURL, oauth.ClientKey, uri, state)
 }
 
 type accessTokenRes struct {
