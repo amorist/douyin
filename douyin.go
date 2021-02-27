@@ -11,8 +11,8 @@ type Douyin struct {
 	cache cache.Cache
 }
 
-// NewDouyin init.
-func NewDouyin() *Douyin {
+// New init.
+func New() *Douyin {
 	return &Douyin{}
 }
 

@@ -8,7 +8,7 @@
 ## Usage 示例
 
 ```go
-dy := douyin.NewDouyin()
+dy := douyin.New()
 scopes := oauth.GetAllScope(),
 cfg := &config.Config{
     ClientKey:    "your client key",
