@@ -16,7 +16,6 @@ const (
 	accessTokenURL        string = "https://open.douyin.com/oauth/access_token?client_key=%s&client_secret=%s&code=%s&grant_type=authorization_code"
 	refreshAccessTokenURL string = "https://open.douyin.com/oauth/oauth/refresh_token?client_key=%s&grant_type=refresh_token&refresh_token=%s"
 	clientTokenURL        string = "https://open.douyin.com/oauth/oauth/client_token/?client_key=%s&client_secret=%s&grant_type=client_credential"
-	userInfoURL           string = "https://open.douyin.com/oauth/oauth/userinfo?access_token=%s&open_id=%s"
 )
 
 // Oauth 保存用户授权信息
@@ -78,46 +77,5 @@ func (oauth *Oauth) GetUserAccessToken(code string) (accessToken credential.Acce
 		return
 	}
 
-	return
-}
-
-// UserInfo 用户信息
-type UserInfo struct {
-	util.CommonError
-
-	Avatar       string `json:"avatar"`
-	City         string `json:"city"`
-	Country      string `json:"country"`
-	EAccountRole string `json:"e_account_role"`
-	Gender       int32  `json:"gender"`
-	Nickname     string `json:"nickname"`
-	OpenID       string `json:"open_id"`
-	Province     string `json:"province"`
-	Unionid      string `json:"union_id"`
-}
-
-type userInforRes struct {
-	Message string   `json:"message"`
-	Data    UserInfo `json:"data"`
-}
-
-// GetUserInfo 获取用户信息.
-func (oauth *Oauth) GetUserInfo(accessToken, openID string) (userInfo *UserInfo, err error) {
-	uri := fmt.Sprintf(userInfoURL, accessToken, openID)
-	var response []byte
-	response, err = util.HTTPGet(uri)
-	if err != nil {
-		return
-	}
-	var result userInforRes
-	err = json.Unmarshal(response, &result)
-	if err != nil {
-		return
-	}
-	if result.Data.ErrCode != 0 {
-		err = fmt.Errorf("GetUserInfo error : errcode=%v , errmsg=%v", result.Data.ErrCode, result.Data.ErrMsg)
-		return
-	}
-	userInfo = &result.Data
 	return
 }
