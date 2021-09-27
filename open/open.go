@@ -1,17 +1,18 @@
 package open
 
 import (
-	"github.com/amorist/douyin/open/config"
-	"github.com/amorist/douyin/open/context"
-	"github.com/amorist/douyin/open/credential"
-	"github.com/amorist/douyin/open/enterprise"
-	"github.com/amorist/douyin/open/image"
-	"github.com/amorist/douyin/open/oauth"
-	"github.com/amorist/douyin/open/pay"
-	"github.com/amorist/douyin/open/poi"
-	"github.com/amorist/douyin/open/search"
-	"github.com/amorist/douyin/open/user"
-	"github.com/amorist/douyin/open/video"
+	"douyin/open/config"
+	"douyin/open/context"
+	"douyin/open/credential"
+	"douyin/open/enterprise"
+	externaldata "douyin/open/external_data"
+	"douyin/open/image"
+	"douyin/open/oauth"
+	"douyin/open/pay"
+	"douyin/open/poi"
+	"douyin/open/search"
+	"douyin/open/user"
+	"douyin/open/video"
 )
 
 //API 抖音开放平台API
@@ -61,6 +62,10 @@ func (api *API) GetOauth() *oauth.Oauth {
 // GetVideo 视频管理接口
 func (api *API) GetVideo() *video.Video {
 	return video.NewVideo(api.ctx)
+}
+
+func (api *API) GetExternalData() *externaldata.ExternalData {
+	return externaldata.NewExternalData(api.ctx)
 }
 
 // GetImage 图片管理接口

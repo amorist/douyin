@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/amorist/douyin/open/cache"
-	"github.com/amorist/douyin/util"
+	"douyin/open/cache"
+	"douyin/util"
 )
 
 //获取ticket的url

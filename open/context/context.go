@@ -1,8 +1,8 @@
 package context
 
 import (
-	"github.com/amorist/douyin/open/config"
-	"github.com/amorist/douyin/open/credential"
+	"douyin/open/config"
+	"douyin/open/credential"
 )
 
 // Context struct

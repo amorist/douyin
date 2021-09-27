@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/amorist/douyin/util"
+	"douyin/util"
 )
 
 const (

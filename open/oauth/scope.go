@@ -27,7 +27,9 @@ const (
 	// ScopeVideoDelete 删除抖音视频
 	ScopeVideoDelete = "video.delete"
 	// ScopeHotsearch 获取实时热点词 --获取热点词聚合的视频
-	ScopeHotsearch = "hotsearch"
+	ScopeHotsearch    = "hotsearch"
+	ScopeExternalUser = "data.external.user"
+	ScopeMobile       = "mobile"
 
 	// 互动
 
@@ -39,7 +41,7 @@ const (
 
 // GetUserScope 获取用户相关Scope.
 func GetUserScope() string {
-	scopes := []string{ScopeUserInfo, ScopeFansList, ScopeFollowingList, ScopeFansData}
+	scopes := []string{ScopeUserInfo, ScopeFansList, ScopeFollowingList, ScopeFansData, ScopeExternalUser, ScopeMobile}
 	return strings.Join(scopes, ",")
 }
 

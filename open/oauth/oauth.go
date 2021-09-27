@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/amorist/douyin/open/context"
-	"github.com/amorist/douyin/open/credential"
-	"github.com/amorist/douyin/util"
+	"douyin/open/context"
+	"douyin/open/credential"
+	"douyin/util"
 )
 
 const (
@@ -64,18 +64,18 @@ func (oauth *Oauth) GetUserAccessToken(code string) (accessToken credential.Acce
 	var result accessTokenRes
 	err = json.Unmarshal(response, &result)
 	if err != nil {
-		return
+		return result.Data, err
 	}
 
 	if result.Data.ErrCode != 0 {
 		err = fmt.Errorf("GetUserAccessToken error : errcode=%v , errmsg=%v", result.Data.ErrCode, result.Data.ErrMsg)
-		return
+		return result.Data, err
 	}
 
 	err = oauth.SetAccessToken(&result.Data)
 	if err != nil {
-		return
+		return result.Data, err
 	}
 
-	return
+	return result.Data, nil
 }
