@@ -35,4 +35,5 @@ url := oauth.GetRedirectURL("amor")
 
 ## Issue 如有问题，可以提issue或通过微信联系我
 
-加微信`amor-ist`备注`douyin api`.
+![微信](images/wechat.png)
+
