@@ -1,11 +1,11 @@
 package enterprise
 
 import (
-	"github.com/amorist/douyin/open/context"
-	"github.com/amorist/douyin/open/enterprise/groupon"
-	"github.com/amorist/douyin/open/enterprise/im"
-	"github.com/amorist/douyin/open/enterprise/interactive"
-	"github.com/amorist/douyin/open/enterprise/user"
+	"douyin/open/context"
+	"douyin/open/enterprise/groupon"
+	"douyin/open/enterprise/im"
+	"douyin/open/enterprise/interactive"
+	"douyin/open/enterprise/user"
 )
 
 // Enterprise .

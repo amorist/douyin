@@ -1,6 +1,6 @@
 package config
 
-import "github.com/amorist/douyin/open/cache"
+import "douyin/open/cache"
 
 // Config config for 抖音开放平台
 type Config struct {

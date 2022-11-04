@@ -4,12 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/amorist/douyin/open/context"
-	"github.com/amorist/douyin/util"
+	"douyin/open/context"
+	"douyin/util"
 )
 
 const (
-	userInfoURL      string = "https://open.douyin.com/oauth/oauth/userinfo?access_token=%s&open_id=%s"
+	userInfoURL      string = "https://open.douyin.com/oauth/userinfo?access_token=%s&open_id=%s"
 	fansListURL      string = "https://open.douyin.com/fans/list?access_token=%s&open_id=%s&cursor=%d&count=%d"
 	followingListURL string = "https://open.douyin.com/following/list?access_token=%s&open_id=%s&cursor=%d&count=%d"
 )
@@ -29,16 +29,16 @@ func NewUser(context *context.Context) *User {
 // Info .
 type Info struct {
 	util.CommonError
-
-	Avatar       string `json:"avatar"`
-	City         string `json:"city"`
-	Country      string `json:"country"`
-	EAccountRole string `json:"e_account_role"`
-	Gender       int32  `json:"gender"`
-	Nickname     string `json:"nickname"`
-	OpenID       string `json:"open_id"`
-	Province     string `json:"province"`
-	Unionid      string `json:"union_id"`
+	EncryptMobile string `json:"encrypt_mobile"`
+	Avatar        string `json:"avatar"`
+	City          string `json:"city"`
+	Country       string `json:"country"`
+	EAccountRole  string `json:"e_account_role"`
+	Gender        int32  `json:"gender"`
+	Nickname      string `json:"nickname"`
+	OpenID        string `json:"open_id"`
+	Province      string `json:"province"`
+	Unionid       string `json:"union_id"`
 }
 
 type userInfoRes struct {

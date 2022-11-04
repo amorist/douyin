@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/amorist/douyin/open/context"
-	"github.com/amorist/douyin/util"
+	"douyin/open/context"
+	"douyin/util"
 )
 
 const (

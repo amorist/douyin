@@ -1,6 +1,6 @@
 package interactive
 
-import "github.com/amorist/douyin/open/context"
+import "douyin/open/context"
 
 // Interactive 互动管理.
 type Interactive struct {
